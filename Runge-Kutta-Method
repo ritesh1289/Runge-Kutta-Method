@@ -1,0 +1,27 @@
+
+#include <stdio.h>
+#include <math.h>
+
+double f(double x, double y) {
+    return x + y; 
+}
+
+void rungeKutta(double x0, double y0, double h, double xn) {
+    double x = x0, y = y0;
+    while (x < xn) {
+        double k1 = f(x, y);
+        double k2 = f(x + h / 2, y + h * k1 / 2);
+        double k3 = f(x + h / 2, y + h * k2 / 2);
+        double k4 = f(x + h, y + h * k3);
+        y = y + (h / 6) * (k1 + 2*k2 + 2*k3 + k4);
+        x = x + h;
+        printf("x = %.2f, y = %.4f\n", x, y);
+    }
+}
+
+int main() {
+    double x0 = 0, y0 = 1, h = 0.2, xn = 1;
+    rungeKutta(x0, y0, h, xn);
+    return 0;
+}
+
